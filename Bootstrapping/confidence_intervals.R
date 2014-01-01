@@ -8,8 +8,6 @@ rm(list=ls())
 getwd()
 setwd('C:/Users/avenkata/Desktop/')
 
-# READING THE DATA SET IN WIDE FORM
-# for total spend
 ts_rev= read.csv('penfed_total.csv', header=TRUE, na.strings='.')
 
 # str(ts_rev)
@@ -37,7 +35,7 @@ twin_total_spend=      apply(ts_rev[(n_enrollees+1):(2*n_enrollees),], 2, sum, n
 inc_rev= (enrollee_total_spend - twin_total_spend)
 inc_rev_enrollee_obs= inc_rev/n_enrollees
 
-# MERSENE-TWISTER - Random number generator
+# MERSENE-TWISTER - RANDOM NUMBER GENERATOR
 RNGkind(kind="Mersenne")
 set.seed(1971)
 B=10000
