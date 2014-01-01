@@ -11,4 +11,4 @@ Clustering-Variable_Selection - SAS Code that can be used for variable clusterin
 Geo-Visulization - R code for plotting aggregated metrics on a gepgraphic map using GGPLOT.
 Most of them are a work in progress.
 
-Sparklie - R codee for building regression model for predicting the price of a Diamond. 
+Sparklie - R code for building regression model for predicting the price of a Diamond. 
