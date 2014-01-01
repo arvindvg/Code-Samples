@@ -1,8 +1,6 @@
 Code-Samples
 ============
 
-These are sample code I have written over time to analyze different datasets. 
-
 Bootstrapping - Folder contains R code for calculation of confidence intervals
 
 Clustering-Variable_Selection - SAS Code that can be used for variable clustering, variable selection
