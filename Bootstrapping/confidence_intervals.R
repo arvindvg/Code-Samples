@@ -18,16 +18,16 @@ dim(ts_rev)
 # head(ts_rev)
 # tail(ts_rev)
 
-# INCREMENTAL REVENUE CALCULATOR
+# Incremental Revenue Calculator
 n_enrollees= dim(ts_rev)[1]/2
 
-# REORDERING OBSERVATIONS TO EACH ID/SUBJECT'S MEASURES/OCCASIONS ARE GROUPED TOGETHER
+# Reorder Observation so that Enrolled/Control are group together
 ts_rev= ts_rev[order(ts_rev$control_flag, ts_rev$twin_pair), ]
 ts_rev= ts_rev[, -c(1:2,12)]
 ts_rev= ts_rev[c('spend_pre090','spend_pre060','spend_pre030','spend_post030','spend_post060','spend_post090','spend_post120','spend_post150','spend_post180')]
 
 
-# CALCULATING OBSERVED INCREMENTAL REVENUE
+# Calculate incremental reveunue at consumer level
 enrollee_total_spend=  apply(ts_rev[1:n_enrollees,], 2, sum, na.rm=TRUE)  
 # enrollee_total_active= apply((ts_rev[1:n_enrollees,]>0), 2, sum, na.rm=TRUE)          
 twin_total_spend=      apply(ts_rev[(n_enrollees+1):(2*n_enrollees),], 2, sum, na.rm=TRUE)
@@ -35,7 +35,7 @@ twin_total_spend=      apply(ts_rev[(n_enrollees+1):(2*n_enrollees),], 2, sum, n
 inc_rev= (enrollee_total_spend - twin_total_spend)
 inc_rev_enrollee_obs= inc_rev/n_enrollees
 
-# MERSENE-TWISTER - RANDOM NUMBER GENERATOR
+# MERSENE-TWISTER 
 RNGkind(kind="Mersenne")
 set.seed(1971)
 B=10000
@@ -69,7 +69,7 @@ write.table(B_inc_rev, "B_inc_rev.txt", row.names=FALSE, col.names=TRUE)
 CIs <- function(x, lower=0.025, upper=0.975) {
    CI_bounds= as.numeric(quantile(x, c(lower, upper) ))
    return(CI_bounds)
-} # END FUNCTION CIs
+} 
 
 CIs_95= apply(B_inc_rev, 2, CIs)
 CIs_95= matrix(c(t(CIs_95), inc_rev_enrollee_obs), nrow=3, byrow=T)
@@ -79,7 +79,7 @@ rownames(CIs_95)= c('95% CI: Lower','95% CI: Upper','Average Value')
 write.table(CIs_95, "CIs_95.txt", row.names=TRUE, col.names=TRUE)
 #CIs_95= read.table('CIs_95.txt', header=TRUE, na.strings='.')
 
-# INCREMENTAL REVENUE PLOT
+# Incremental Revenue Plot
 windows(9,6)
 par(xaxs='i', yaxs='i')
 time_points= seq(from=1, to=9, by=1)
